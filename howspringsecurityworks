@@ -1,0 +1,21 @@
+the way the springboot adds itself to the request processing is by adding filters to  the application
+bootstrap into the springboot application
+it first intercept authentication request by using filters
+then  initiates authentication
+Authentication interface is like authentication Object and returns the principal
+and then creates a threadlocal for the authentication(principle) saved in the security context and then this principle is returned back to the principle to create a session
+for that principle for further subrequest
+session token is used to when you are currently logged for the server to know who you are
+ then the session is stored in the cookie and server remembers
+  who you are
+  case
+  multiple instance of a servers
+  every request
+1 st case the load balancer remembers the server with  a stored session and redirects the request to it
+the issue is comes in when what about when that server is down that is where json web token comes in
+2 nd case the server looks ind redis storage with sessions
+for  jwt the server does not to  remember the   details of the client
+
+Oauth2
+Oauth2 uses jwt
+service authorize with another service
