@@ -1,4 +1,4 @@
-package com.codedailywithme.springSecurityPractice.model;
+package com.codedailywithme.springSecurityPractice.user;
 
 
 import jakarta.persistence.*;

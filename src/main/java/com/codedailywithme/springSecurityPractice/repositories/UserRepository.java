@@ -1,6 +1,6 @@
 package com.codedailywithme.springSecurityPractice.repositories;
 
-import com.codedailywithme.springSecurityPractice.model.User;
+import com.codedailywithme.springSecurityPractice.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
