@@ -20,12 +20,11 @@ public class Token {
     public String token;
     @Enumerated(EnumType.STRING)
     public TokenType tokenType = TokenType.BEARER;
-
     public boolean revoked;
 
     public boolean expired;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     public User user;
 

@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,10 +18,10 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtAuthFilter extends OncePerRequestFilter{
     private  final JwtService jwtService;
     private final UserDetailsService userDetailsService;
-
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         final  String authenticationHeader=request.getHeader("Authorization");
@@ -29,15 +30,19 @@ public class JwtAuthFilter extends OncePerRequestFilter{
         if(authenticationHeader==null || !authenticationHeader.startsWith("Bearer ") ){
             filterChain.doFilter(request,response);
             return;
+
         }
-        jwt = authenticationHeader.split(" ")[1].trim();
+        jwt= authenticationHeader.split(" ")[1].trim();
         userEmail=jwtService.extractUsername(jwt);
+        log.info(userEmail);
      if(userEmail !=null && SecurityContextHolder.getContext().getAuthentication()==null){
          UserDetails userDetails=this.userDetailsService.loadUserByUsername(userEmail);
          if (jwtService.isTokenValid(jwt, userDetails)) {
              UsernamePasswordAuthenticationToken authToken=new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
              authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
              SecurityContextHolder.getContext().setAuthentication(authToken);
+             log.info("inside authentication provision");
+             filterChain.doFilter(request,response);
          }
 
      }
