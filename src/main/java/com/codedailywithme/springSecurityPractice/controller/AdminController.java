@@ -1,4 +1,4 @@
-package com.codedailywithme.springSecurityPractice.demo;
+package com.codedailywithme.springSecurityPractice.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

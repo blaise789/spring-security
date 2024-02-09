@@ -1,6 +1,6 @@
-package com.codedailywithme.springSecurityPractice.token;
+package com.codedailywithme.springSecurityPractice.model;
 
-import com.codedailywithme.springSecurityPractice.user.User;
+import com.codedailywithme.springSecurityPractice.enums.TokenType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

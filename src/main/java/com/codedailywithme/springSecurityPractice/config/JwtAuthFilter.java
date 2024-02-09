@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import  io.jsonwebtoken.security.Keys;
 import java.io.IOException;
 
 @Component
@@ -31,7 +30,7 @@ public class JwtAuthFilter extends OncePerRequestFilter{
             filterChain.doFilter(request,response);
             return;
         }
-        jwt=authenticationHeader.substring(7);
+        jwt = authenticationHeader.split(" ")[1].trim();
         userEmail=jwtService.extractUsername(jwt);
      if(userEmail !=null && SecurityContextHolder.getContext().getAuthentication()==null){
          UserDetails userDetails=this.userDetailsService.loadUserByUsername(userEmail);

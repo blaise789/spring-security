@@ -1,4 +1,4 @@
-package com.codedailywithme.springSecurityPractice.book;
+package com.codedailywithme.springSecurityPractice.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

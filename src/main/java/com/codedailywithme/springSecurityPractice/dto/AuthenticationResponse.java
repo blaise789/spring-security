@@ -1,4 +1,4 @@
-package com.codedailywithme.springSecurityPractice.auth;
+package com.codedailywithme.springSecurityPractice.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

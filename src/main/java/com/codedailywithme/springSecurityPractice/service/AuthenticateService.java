@@ -1,12 +1,16 @@
-package com.codedailywithme.springSecurityPractice.auth;
+package com.codedailywithme.springSecurityPractice.service;
 
+import com.codedailywithme.springSecurityPractice.auditing.ApplicationAuditingAware;
 import com.codedailywithme.springSecurityPractice.config.JwtService;
-import com.codedailywithme.springSecurityPractice.token.Token;
-import com.codedailywithme.springSecurityPractice.token.TokenRepository;
-import com.codedailywithme.springSecurityPractice.token.TokenType;
-import com.codedailywithme.springSecurityPractice.user.Role;
-import com.codedailywithme.springSecurityPractice.user.User;
-import com.codedailywithme.springSecurityPractice.repositories.UserRepository;
+import com.codedailywithme.springSecurityPractice.dto.AuthenticationRequest;
+import com.codedailywithme.springSecurityPractice.dto.AuthenticationResponse;
+import com.codedailywithme.springSecurityPractice.dto.RegisterRequest;
+import com.codedailywithme.springSecurityPractice.model.Token;
+import com.codedailywithme.springSecurityPractice.repository.TokenRepository;
+import com.codedailywithme.springSecurityPractice.enums.TokenType;
+import com.codedailywithme.springSecurityPractice.model.Role;
+import com.codedailywithme.springSecurityPractice.model.User;
+import com.codedailywithme.springSecurityPractice.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,8 +27,8 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AuthenticateService {
     private  final TokenRepository tokenRepository;
-    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
     private  final JwtService jwtService;
     private  final AuthenticationManager authenticationManager;
 
@@ -36,10 +40,12 @@ public class AuthenticateService {
             .password(passwordEncoder.encode(request.getPassword()))
             .role(Role.USER)
             .build();
+
    var savedUser= userRepository.save(user);
    String jwtToken=jwtService.generateToken(user);
    String refreshToken=jwtService.generateRefreshToken(user);
    saveUserToken(savedUser,jwtToken);
+
  return AuthenticationResponse.builder()
          .accessToken(jwtToken)
          .refreshToken(refreshToken)
@@ -55,8 +61,9 @@ public class AuthenticateService {
                         authRequest.getPassword()
                 )
         );
+
                 User user=userRepository.findByEmail(authRequest.getEmail()).orElseThrow( );
-        String jwtToken = jwtService.generateToken(user);
+             String jwtToken=tokenRepository.findByUserId(user.getId());
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .build();

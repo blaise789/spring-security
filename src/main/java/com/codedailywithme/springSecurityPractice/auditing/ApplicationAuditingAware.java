@@ -1,12 +1,13 @@
 package com.codedailywithme.springSecurityPractice.auditing;
 
-import com.codedailywithme.springSecurityPractice.user.User;
+import com.codedailywithme.springSecurityPractice.model.User;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Optional;
+
 
 public class ApplicationAuditingAware implements AuditorAware<Integer> {
     @Override

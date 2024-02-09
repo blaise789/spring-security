@@ -1,5 +1,9 @@
-package com.codedailywithme.springSecurityPractice.auth;
+package com.codedailywithme.springSecurityPractice.controller;
 
+import com.codedailywithme.springSecurityPractice.dto.AuthenticationRequest;
+import com.codedailywithme.springSecurityPractice.dto.AuthenticationResponse;
+import com.codedailywithme.springSecurityPractice.dto.RegisterRequest;
+import com.codedailywithme.springSecurityPractice.service.AuthenticateService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +24,7 @@ public class AuthController {
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest registerRequest){
         return ResponseEntity.ok(service.register(registerRequest));
     }
-    @PostMapping("/authenticate")
+    @PostMapping("/signin")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest authRequest){
         return ResponseEntity.ok(service.authenticate(authRequest));
     }

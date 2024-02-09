@@ -1,4 +1,4 @@
-package com.codedailywithme.springSecurityPractice.book;
+package com.codedailywithme.springSecurityPractice.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

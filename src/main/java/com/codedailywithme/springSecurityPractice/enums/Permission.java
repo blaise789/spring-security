@@ -1,4 +1,4 @@
-package com.codedailywithme.springSecurityPractice.user;
+package com.codedailywithme.springSecurityPractice.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
